@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - ${APP_PORT:-3000}:${APP_PORT:-3000}
+    command: npm run start:dev
+    depends_on:
+      - db
+  db:
+    image: mongo
+    volumes:
+      - db-data:/data/db
+    ports:
+      - ${DB_PORT:-27017}:${DB_PORT:-27017}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$DB_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$DB_PASSWORD
+
+volumes:
+  db-data:
