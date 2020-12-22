@@ -6,6 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUser } from './dto/create-user.dto';
+import { GetUser } from './dto/get-user.dto';
 import { User, UserDocument } from './schemas/user.schema';
 
 @Injectable()
@@ -14,6 +15,14 @@ export class UserService {
     @InjectModel('User')
     private userModel: Model<UserDocument>,
   ) {}
+
+  public async findOne(getUserDto: GetUser): Promise<User> {
+    try {
+      return await this.userModel.findOne(getUserDto);
+    } catch (e) {
+      throw new InternalServerErrorException(e.message);
+    }
+  }
 
   public async save(createUserDto: CreateUser): Promise<User> {
     try {

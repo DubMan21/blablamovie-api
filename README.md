@@ -62,3 +62,51 @@ DB_PASSWORD=
   "error": "Bad Request"
 }
 ```
+
+### 2. Get a user by email
+
+##### 2.1 Request
+
+* Method : `GET`
+* Route : `/user/${email}`
+
+##### 2.2 Response
+
+* Success response
+   * Status code : `201`
+   * Body :
+```json 
+{
+  "createdAt": "2020-12-22T11:28:24.541Z",
+  "choices": [],
+  "_id": "5fe1d85f266db701db1cd897",
+  "username": "username",
+  "email": "user@gmail.com",
+  "birthDate": "2000-03-12T00:00:00.000Z"
+}
+```
+* Bad Request response
+   * Status code : `400`
+   * Body :
+```json 
+{
+  "statusCode": 400,
+  "message": [
+    "email must be an email"
+  ],
+  "error": "Bad Request"
+}
+```
+
+* Not found response
+   * Status code : `404`
+   * Body :
+```json 
+{
+  "statusCode": 404,
+  "message": [
+    "This user does not exist"
+  ],
+  "error": "Not Found"
+}
+```
